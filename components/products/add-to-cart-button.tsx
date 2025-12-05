@@ -13,6 +13,7 @@ import { useUser } from "@clerk/nextjs";
 import { ShoppingCart } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { addToCart } from "@/lib/actions/cart-actions";
+import { isApiError } from "@/lib/types/api";
 
 interface AddToCartButtonProps {
   productId: string;
@@ -41,13 +42,13 @@ export function AddToCartButton({
     startTransition(async () => {
       const result = await addToCart(productId, 1);
 
-      if (result.success) {
+      if (isApiError(result)) {
+        setMessage(result.error || "장바구니 추가에 실패했습니다.");
+      } else {
         setMessage("장바구니에 추가되었습니다.");
         setTimeout(() => {
           router.refresh();
         }, 1000);
-      } else {
-        setMessage(result.error || "장바구니 추가에 실패했습니다.");
       }
     });
   };

@@ -12,6 +12,7 @@ import { useRouter } from "next/navigation";
 import { ShippingForm, type ShippingFormValues } from "./shipping-form";
 import { PaymentWidget } from "./payment-widget";
 import { createOrder } from "@/lib/actions/order-actions";
+import { isApiSuccess } from "@/lib/types/api";
 import type { CartSummary } from "@/lib/types/cart";
 
 interface CheckoutPaymentFlowProps {
@@ -40,11 +41,11 @@ export function CheckoutPaymentFlow({ summary }: CheckoutPaymentFlowProps) {
         orderNote: data.orderNote || undefined,
       });
 
-      if (result.success && result.orderId) {
-        setOrderId(result.orderId);
+      if (isApiSuccess(result) && "orderId" in result.data) {
+        setOrderId(result.data.orderId);
         setShowPayment(true);
       } else {
-        setError(result.error || "주문 생성에 실패했습니다.");
+        setError("주문 생성에 실패했습니다.");
       }
     });
   };

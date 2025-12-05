@@ -11,6 +11,7 @@ import { useRouter } from "next/navigation";
 import { useState, useTransition } from "react";
 import { ShippingForm, type ShippingFormValues } from "./shipping-form";
 import { createOrder } from "@/lib/actions/order-actions";
+import { isApiSuccess } from "@/lib/types/api";
 
 export function CheckoutFormWrapper() {
   const router = useRouter();
@@ -32,10 +33,10 @@ export function CheckoutFormWrapper() {
         orderNote: data.orderNote || undefined,
       });
 
-      if (result.success && result.orderId) {
-        router.push(`/orders/${result.orderId}`);
+      if (isApiSuccess(result) && "orderId" in result.data) {
+        router.push(`/orders/${result.data.orderId}`);
       } else {
-        setError(result.error || "주문 생성에 실패했습니다.");
+        setError("주문 생성에 실패했습니다.");
       }
     });
   };

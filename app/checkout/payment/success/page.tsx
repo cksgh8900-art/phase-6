@@ -9,6 +9,7 @@ import { redirect } from "next/navigation";
 import { auth } from "@clerk/nextjs/server";
 import { confirmOrder } from "@/lib/actions/payment-actions";
 import { getOrderById } from "@/lib/supabase/queries/orders";
+import { isApiError } from "@/lib/types/api";
 
 interface PaymentSuccessPageProps {
   searchParams: Promise<{
@@ -51,7 +52,7 @@ export default async function PaymentSuccessPage({
   if (order.status === "pending") {
     const result = await confirmOrder(orderId);
 
-    if (!result.success) {
+    if (isApiError(result)) {
       redirect(`/checkout/payment/fail?orderId=${orderId}&message=${encodeURIComponent(result.error || "주문 확인에 실패했습니다.")}`);
     }
   }

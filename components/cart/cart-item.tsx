@@ -7,7 +7,6 @@
 
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 import { Minus, Plus, Trash2, Package } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -17,6 +16,7 @@ import {
   updateCartItemQuantity,
   removeFromCart,
 } from "@/lib/actions/cart-actions";
+import { isApiError } from "@/lib/types/api";
 import { useState, useTransition } from "react";
 
 interface CartItemProps {
@@ -37,7 +37,7 @@ export function CartItem({ item }: CartItemProps) {
     setQuantity(newQuantity);
     startTransition(async () => {
       const result = await updateCartItemQuantity(item.id, newQuantity);
-      if (!result.success) {
+      if (isApiError(result)) {
         setQuantity(item.quantity); // 롤백
         alert(result.error);
       }
@@ -49,7 +49,7 @@ export function CartItem({ item }: CartItemProps) {
 
     startTransition(async () => {
       const result = await removeFromCart(item.id);
-      if (!result.success) {
+      if (isApiError(result)) {
         alert(result.error);
       }
     });
