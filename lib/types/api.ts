@@ -10,7 +10,7 @@
  */
 export interface ApiSuccessResponse<T = unknown> {
   success: true;
-  data: T;
+  data?: T;
 }
 
 /**

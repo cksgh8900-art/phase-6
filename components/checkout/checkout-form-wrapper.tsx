@@ -9,7 +9,8 @@
 
 import { useRouter } from "next/navigation";
 import { useState, useTransition } from "react";
-import { ShippingForm, type ShippingFormValues } from "./shipping-form";
+import { ShippingForm } from "./shipping-form";
+import { type ShippingFormValues } from "@/lib/schemas/shipping.schema";
 import { createOrder } from "@/lib/actions/order-actions";
 import { isApiSuccess } from "@/lib/types/api";
 
@@ -33,7 +34,7 @@ export function CheckoutFormWrapper() {
         orderNote: data.orderNote || undefined,
       });
 
-      if (isApiSuccess(result) && "orderId" in result.data) {
+      if (isApiSuccess(result) && result.data && "orderId" in result.data) {
         router.push(`/orders/${result.data.orderId}`);
       } else {
         setError("주문 생성에 실패했습니다.");

@@ -9,7 +9,8 @@
 
 import { useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
-import { ShippingForm, type ShippingFormValues } from "./shipping-form";
+import { ShippingForm } from "./shipping-form";
+import { type ShippingFormValues } from "@/lib/schemas/shipping.schema";
 import { PaymentWidget } from "./payment-widget";
 import { createOrder } from "@/lib/actions/order-actions";
 import { isApiSuccess } from "@/lib/types/api";
@@ -41,7 +42,7 @@ export function CheckoutPaymentFlow({ summary }: CheckoutPaymentFlowProps) {
         orderNote: data.orderNote || undefined,
       });
 
-      if (isApiSuccess(result) && "orderId" in result.data) {
+      if (isApiSuccess(result) && result.data && "orderId" in result.data) {
         setOrderId(result.data.orderId);
         setShowPayment(true);
       } else {

@@ -15,7 +15,6 @@ import type { ApiResponse } from "@/lib/types/api";
 import { revalidatePath } from "next/cache";
 
 interface CreateOrderResponse {
-  success: true;
   orderId: string;
   totalAmount: number;
 }
@@ -101,8 +100,10 @@ export async function createOrder(
 
     return {
       success: true,
-      orderId: order.id,
-      totalAmount,
+      data: {
+        orderId: order.id,
+        totalAmount,
+      },
     };
   } catch (err) {
     console.error("Unexpected error in createOrder:", err);
