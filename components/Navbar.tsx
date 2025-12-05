@@ -7,10 +7,10 @@ import { CartIcon } from "@/components/cart/cart-icon";
 const Navbar = () => {
   return (
     <header className="flex justify-between items-center p-4 gap-4 h-16 max-w-7xl mx-auto">
-      <Link 
-        href="/" 
+      <Link
+        href="/"
         className="text-2xl font-bold focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 rounded"
-        aria-label="홈으로 이동"
+        aria-label="홈 이동"
       >
         SaaS Template
       </Link>
