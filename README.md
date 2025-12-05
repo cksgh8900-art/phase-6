@@ -462,6 +462,72 @@ saas-template/
 - [ ] 데이터베이스 스키마 적용 완료
 - [ ] E2E 테스트 완료 ([테스트 체크리스트](./docs/testing/e2e-checklist.md) 참고)
 
+## 운영 가이드
+
+### 상품 관리
+
+상품은 Supabase 대시보드에서 직접 등록 및 관리합니다.
+
+1. Supabase Dashboard → **Table Editor** → `products` 테이블 선택
+2. **Insert row** 클릭하여 새 상품 추가
+3. 필수 필드 입력:
+   - `name`: 상품명
+   - `description`: 상품 설명
+   - `price`: 가격 (숫자)
+   - `stock_quantity`: 재고 수량
+   - `category`: 카테고리 (`top`, `bottom`, `outer`, `shoes`, `accessories`)
+   - `is_active`: 판매 여부 (`true`/`false`)
+
+### 주문 관리
+
+1. Supabase Dashboard → **Table Editor** → `orders` 테이블 선택
+2. 주문 목록 확인 및 상태 업데이트
+3. 주문 상태:
+   - `pending`: 결제 대기 중
+   - `confirmed`: 결제 완료
+   - `shipped`: 배송 중
+   - `delivered`: 배송 완료
+   - `cancelled`: 취소됨
+
+### 사용자 관리
+
+1. Clerk Dashboard에서 사용자 관리
+2. Supabase `users` 테이블은 Clerk와 자동 동기화됨
+
+자세한 운영 가이드는 [운영 가이드 문서](./docs/operations/admin-guide.md)를 참고하세요.
+
+## 트러블슈팅
+
+### 일반적인 문제
+
+#### 데이터베이스 연결 오류
+- **증상**: "Could not find the table" 에러
+- **해결**: Supabase 마이그레이션 파일 실행 확인 (`supabase/migrations/db.sql`)
+
+#### 인증 오류
+- **증상**: 로그인 후에도 인증되지 않음
+- **해결**: Clerk와 Supabase 통합 설정 확인
+
+#### 결제위젯 로드 실패
+- **증상**: 결제위젯이 표시되지 않음
+- **해결**: `NEXT_PUBLIC_TOSS_PAYMENTS_CLIENT_KEY` 환경변수 확인
+
+자세한 문제 해결 방법은 [트러블슈팅 가이드](./docs/operations/troubleshooting.md)를 참고하세요.
+
+## FAQ
+
+### Q: 상품 이미지는 어떻게 추가하나요?
+A: 현재는 이미지 필드가 없습니다. 향후 Supabase Storage를 활용한 이미지 업로드 기능을 추가할 예정입니다.
+
+### Q: 실제 결제는 어떻게 하나요?
+A: 현재는 테스트 모드로만 운영됩니다. 실제 결제를 위해서는 Toss Payments 프로덕션 키 발급 및 설정이 필요합니다.
+
+### Q: RLS는 왜 비활성화되어 있나요?
+A: 개발 환경에서 빠른 개발을 위해 비활성화되어 있습니다. 프로덕션에서는 적절한 RLS 정책을 설정해야 합니다.
+
+### Q: 주문 취소 기능은 있나요?
+A: 현재는 구현되어 있지 않습니다. 관리자가 Supabase 대시보드에서 수동으로 주문 상태를 변경할 수 있습니다.
+
 ## 추가 리소스
 
 - [Next.js 15 문서](https://nextjs.org/docs)

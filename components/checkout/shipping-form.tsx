@@ -9,10 +9,8 @@
 
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import * as z from "zod";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import {
   Form,
@@ -23,21 +21,10 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import type { ShippingAddress } from "@/lib/types/order";
-
-const shippingFormSchema = z.object({
-  recipientName: z.string().min(2, "받는 분 이름을 입력해주세요."),
-  recipientPhone: z
-    .string()
-    .min(10, "전화번호를 올바르게 입력해주세요.")
-    .regex(/^[0-9-]+$/, "전화번호는 숫자와 하이픈(-)만 입력 가능합니다."),
-  postalCode: z.string().min(5, "우편번호를 입력해주세요."),
-  address: z.string().min(5, "주소를 입력해주세요."),
-  detailAddress: z.string().min(2, "상세주소를 입력해주세요."),
-  orderNote: z.string().optional(),
-});
-
-export type ShippingFormValues = z.infer<typeof shippingFormSchema>;
+import {
+  shippingFormSchema,
+  type ShippingFormValues,
+} from "@/lib/schemas/shipping.schema";
 
 interface ShippingFormProps {
   onSubmit: (data: ShippingFormValues) => void;

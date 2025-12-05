@@ -24,13 +24,14 @@ export function ProductCard({ product }: ProductCardProps) {
   return (
     <Link
       href={`/products/${product.id}`}
-      className="group relative flex flex-col bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 overflow-hidden transition-all duration-300 hover:shadow-lg hover:scale-[1.02]"
+      className="group relative flex flex-col bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 overflow-hidden transition-all duration-300 hover:shadow-lg hover:scale-[1.02] focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+      aria-label={`${product.name} 상품 상세 보기`}
     >
       {/* 이미지 영역 (플레이스홀더) */}
       <div className="relative w-full aspect-square bg-gray-100 dark:bg-gray-700 flex items-center justify-center overflow-hidden">
         <Package className="w-16 h-16 text-gray-400 dark:text-gray-500" />
         {isOutOfStock && (
-          <div className="absolute inset-0 bg-black/50 flex items-center justify-center">
+          <div className="absolute inset-0 bg-black/50 dark:bg-black/60 flex items-center justify-center" aria-label="품절">
             <span className="text-white font-semibold text-lg">품절</span>
           </div>
         )}

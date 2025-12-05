@@ -62,8 +62,16 @@ export function AddToCartButton({
         className="w-full flex items-center justify-center gap-2"
         disabled={isDisabled}
         onClick={handleAddToCart}
+        aria-label={
+          isOutOfStock
+            ? "품절된 상품입니다"
+            : isPending
+              ? "장바구니에 추가하는 중"
+              : "장바구니에 담기"
+        }
+        aria-busy={isPending}
       >
-        <ShoppingCart className="w-5 h-5" />
+        <ShoppingCart className="w-5 h-5" aria-hidden="true" />
         {isOutOfStock
           ? "품절"
           : isPending
@@ -72,6 +80,8 @@ export function AddToCartButton({
       </Button>
       {message && (
         <p
+          role="status"
+          aria-live="polite"
           className={`text-xs mt-2 text-center ${
             message.includes("추가되었습니다")
               ? "text-green-600 dark:text-green-400"

@@ -42,6 +42,7 @@ yarn-error.log*
 
 # vercel
 .vercel
+.turbo
 
 # typescript
 *.tsbuildinfo
@@ -49,10 +50,38 @@ next-env.d.ts
 
 # vscode
 .vscode/
+.idea/
 
 # Git related
 *.patch
 *.log
+logs/
+
+# Supabase
+.supabase/
+supabase/.temp/
+supabase/.branches/
+
+# testing
+coverage/
+.test-results/
+playwright-report/
+test-results/
+
+# temporary files
+*.tmp
+*.temp
+.cache/
+
+# OS files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+desktop.ini
 
 # other
 .cursor/mcp.json

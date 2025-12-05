@@ -7,14 +7,18 @@
 
 "use server";
 
-import { auth, currentUser } from "@clerk/nextjs/server";
+import { auth } from "@clerk/nextjs/server";
 import { createClerkSupabaseClient } from "@/lib/supabase/server";
 import { revalidatePath } from "next/cache";
+import type { ApiResponse } from "@/lib/types/api";
 
 /**
  * 장바구니에 상품 추가
  */
-export async function addToCart(productId: string, quantity: number = 1) {
+export async function addToCart(
+  productId: string,
+  quantity: number = 1
+): Promise<ApiResponse> {
   try {
     const { userId } = await auth();
 
@@ -85,7 +89,7 @@ export async function addToCart(productId: string, quantity: number = 1) {
 export async function updateCartItemQuantity(
   cartItemId: string,
   quantity: number
-) {
+): Promise<ApiResponse> {
   try {
     const { userId } = await auth();
 
@@ -143,7 +147,7 @@ export async function updateCartItemQuantity(
 /**
  * 장바구니 아이템 삭제
  */
-export async function removeFromCart(cartItemId: string) {
+export async function removeFromCart(cartItemId: string): Promise<ApiResponse> {
   try {
     const { userId } = await auth();
 
@@ -175,7 +179,7 @@ export async function removeFromCart(cartItemId: string) {
 /**
  * 장바구니 전체 비우기
  */
-export async function clearCart() {
+export async function clearCart(): Promise<ApiResponse> {
   try {
     const { userId } = await auth();
 

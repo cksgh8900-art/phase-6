@@ -64,9 +64,9 @@ const CATEGORIES = [
 
 export function CategorySection() {
   return (
-    <section className="py-12 md:py-16 bg-gray-50 dark:bg-gray-900">
+    <section className="py-12 md:py-16 bg-gray-50 dark:bg-gray-900" aria-label="카테고리 섹션">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <h2 className="text-3xl font-bold text-center mb-8 text-gray-900 dark:text-gray-100">
+        <h2 className="text-2xl sm:text-3xl font-bold text-center mb-8 text-gray-900 dark:text-gray-100">
           카테고리별 쇼핑
         </h2>
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-7 gap-4">
@@ -76,14 +76,16 @@ export function CategorySection() {
               <Link
                 key={category.value}
                 href={`/products?category=${category.value}`}
-                className="group flex flex-col items-center p-6 bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 hover:shadow-lg transition-all duration-300 hover:scale-105"
+                className="group flex flex-col items-center p-4 sm:p-6 bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 hover:shadow-lg transition-all duration-300 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+                aria-label={`${category.label} 카테고리로 이동`}
               >
                 <div
-                  className={`${category.color} w-16 h-16 rounded-full flex items-center justify-center mb-4 group-hover:scale-110 transition-transform`}
+                  className={`${category.color} w-12 h-12 sm:w-16 sm:h-16 rounded-full flex items-center justify-center mb-3 sm:mb-4 group-hover:scale-110 transition-transform`}
+                  aria-hidden="true"
                 >
-                  <Icon className="w-8 h-8 text-white" />
+                  <Icon className="w-6 h-6 sm:w-8 sm:h-8 text-white" />
                 </div>
-                <span className="text-sm font-medium text-gray-900 dark:text-gray-100 text-center">
+                <span className="text-xs sm:text-sm font-medium text-gray-900 dark:text-gray-100 text-center">
                   {category.label}
                 </span>
               </Link>

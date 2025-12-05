@@ -11,12 +11,21 @@ import { auth } from "@clerk/nextjs/server";
 import { createClerkSupabaseClient } from "@/lib/supabase/server";
 import { getCartItems } from "@/lib/supabase/queries/cart";
 import type { CreateOrderInput } from "@/lib/types/order";
+import type { ApiResponse } from "@/lib/types/api";
 import { revalidatePath } from "next/cache";
+
+interface CreateOrderResponse {
+  success: true;
+  orderId: string;
+  totalAmount: number;
+}
 
 /**
  * 주문 생성
  */
-export async function createOrder(input: CreateOrderInput) {
+export async function createOrder(
+  input: CreateOrderInput
+): Promise<ApiResponse<CreateOrderResponse>> {
   try {
     const { userId } = await auth();
 

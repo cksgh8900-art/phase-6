@@ -9,12 +9,13 @@
 
 import { auth } from "@clerk/nextjs/server";
 import { createClerkSupabaseClient } from "@/lib/supabase/server";
+import type { ApiResponse } from "@/lib/types/api";
 import { revalidatePath } from "next/cache";
 
 /**
  * 결제 완료 후 주문 상태 업데이트
  */
-export async function confirmOrder(orderId: string) {
+export async function confirmOrder(orderId: string): Promise<ApiResponse> {
   try {
     const { userId } = await auth();
 

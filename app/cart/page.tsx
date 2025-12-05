@@ -6,11 +6,12 @@
  */
 
 import { redirect } from "next/navigation";
-import Link from "next/link";
 import { auth } from "@clerk/nextjs/server";
 import { getCartSummary } from "@/lib/supabase/queries/cart";
 import { CartItem } from "@/components/cart/cart-item";
 import { CartSummary } from "@/components/cart/cart-summary";
+import { EmptyState } from "@/components/ui/empty-state";
+import { ShoppingCart } from "lucide-react";
 
 export default async function CartPage() {
   const { userId } = await auth();
@@ -29,17 +30,15 @@ export default async function CartPage() {
         </h1>
 
         {summary.items.length === 0 ? (
-          <div className="text-center py-12">
-            <p className="text-lg text-gray-500 dark:text-gray-400 mb-4">
-              장바구니가 비어있습니다.
-            </p>
-            <Link
-              href="/products"
-              className="inline-block px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
-            >
-              쇼핑하러 가기
-            </Link>
-          </div>
+          <EmptyState
+            icon={ShoppingCart}
+            title="장바구니가 비어있습니다"
+            description="원하는 상품을 장바구니에 담아보세요."
+            action={{
+              label: "쇼핑하러 가기",
+              href: "/products",
+            }}
+          />
         ) : (
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
             {/* 장바구니 아이템 목록 */}

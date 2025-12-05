@@ -44,8 +44,12 @@ export default async function ProductDetailPage({
         {/* 뒤로가기 버튼 */}
         <div className="mb-6">
           <Link href="/products">
-            <Button variant="ghost" className="flex items-center gap-2">
-              <ArrowLeft className="w-4 h-4" />
+            <Button 
+              variant="ghost" 
+              className="flex items-center gap-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+              aria-label="상품 목록으로 돌아가기"
+            >
+              <ArrowLeft className="w-4 h-4" aria-hidden="true" />
               상품 목록으로
             </Button>
           </Link>
@@ -57,8 +61,11 @@ export default async function ProductDetailPage({
           <div className="relative w-full aspect-square bg-gray-100 dark:bg-gray-800 rounded-lg flex items-center justify-center overflow-hidden">
             <Package className="w-32 h-32 text-gray-400 dark:text-gray-500" />
             {isOutOfStock && (
-              <div className="absolute inset-0 bg-black/50 flex items-center justify-center">
-                <span className="text-white font-semibold text-2xl">품절</span>
+              <div 
+                className="absolute inset-0 bg-black/50 dark:bg-black/60 flex items-center justify-center"
+                aria-label="품절"
+              >
+                <span className="text-white font-semibold text-xl sm:text-2xl">품절</span>
               </div>
             )}
           </div>

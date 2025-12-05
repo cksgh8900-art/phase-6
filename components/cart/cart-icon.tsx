@@ -69,7 +69,10 @@ export function CartIcon() {
     >
       <ShoppingCart className="w-5 h-5 text-gray-700 dark:text-gray-300" />
       {!isLoading && itemCount > 0 && (
-        <span className="absolute -top-1 -right-1 flex items-center justify-center min-w-[20px] h-5 px-1.5 text-xs font-bold text-white bg-red-500 rounded-full">
+        <span 
+          className="absolute -top-1 -right-1 flex items-center justify-center min-w-[20px] h-5 px-1.5 text-xs font-bold text-white bg-red-500 dark:bg-red-600 rounded-full"
+          aria-label={`장바구니에 ${itemCount}개 상품`}
+        >
           {itemCount > 99 ? "99+" : itemCount}
         </span>
       )}

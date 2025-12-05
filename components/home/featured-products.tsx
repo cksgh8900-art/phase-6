@@ -21,16 +21,20 @@ export function FeaturedProducts({ products }: FeaturedProductsProps) {
   }
 
   return (
-    <section className="py-12 md:py-16">
+    <section className="py-12 md:py-16" aria-label="인기 상품 섹션">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between mb-8">
-          <h2 className="text-3xl font-bold text-gray-900 dark:text-gray-100">
+        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-8 gap-4">
+          <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-gray-100">
             인기 상품
           </h2>
           <Link href="/products">
-            <Button variant="outline" className="flex items-center gap-2">
+            <Button 
+              variant="outline" 
+              className="flex items-center gap-2 w-full sm:w-auto"
+              aria-label="전체 상품 목록 보기"
+            >
               전체 보기
-              <ArrowRight className="w-4 h-4" />
+              <ArrowRight className="w-4 h-4" aria-hidden="true" />
             </Button>
           </Link>
         </div>

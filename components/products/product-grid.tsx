@@ -6,6 +6,8 @@
  */
 
 import { ProductCard } from "./product-card";
+import { EmptyState } from "@/components/ui/empty-state";
+import { Package } from "lucide-react";
 import type { Product } from "@/lib/types/product";
 
 interface ProductGridProps {
@@ -15,11 +17,11 @@ interface ProductGridProps {
 export function ProductGrid({ products }: ProductGridProps) {
   if (products.length === 0) {
     return (
-      <div className="text-center py-12">
-        <p className="text-gray-500 dark:text-gray-400 text-lg">
-          상품이 없습니다.
-        </p>
-      </div>
+      <EmptyState
+        icon={Package}
+        title="상품이 없습니다"
+        description="현재 등록된 상품이 없습니다."
+      />
     );
   }
 
