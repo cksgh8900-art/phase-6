@@ -1,0 +1,46 @@
+import { SignedOut, SignInButton, SignedIn, UserButton } from "@clerk/nextjs";
+import Link from "next/link";
+import React from "react";
+import { Button } from "@/components/ui/button";
+import { CartIcon } from "@/components/cart/cart-icon";
+
+const Navbar = () => {
+  return (
+    <header className="flex justify-between items-center p-4 gap-4 h-16 max-w-7xl mx-auto">
+      <Link href="/" className="text-2xl font-bold">
+        SaaS Template
+      </Link>
+      <nav className="flex items-center gap-6">
+        <Link
+          href="/products"
+          className="text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+        >
+          상품
+        </Link>
+        <SignedIn>
+          <Link
+            href="/orders"
+            className="text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+          >
+            주문 내역
+          </Link>
+        </SignedIn>
+        <div className="flex gap-4 items-center">
+          <SignedIn>
+            <CartIcon />
+          </SignedIn>
+          <SignedOut>
+            <SignInButton mode="modal">
+              <Button>로그인</Button>
+            </SignInButton>
+          </SignedOut>
+          <SignedIn>
+            <UserButton />
+          </SignedIn>
+        </div>
+      </nav>
+    </header>
+  );
+};
+
+export default Navbar;
